@@ -24,28 +24,42 @@ require("lazy").setup({ import = "plugins" }, {
   },
 })
 
--- [[ Remember last cursor position ]]
-vim.api.nvim_create_autocmd("BufReadPost", {
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup
+
+-- Highlight yanked text
+local yank_group = augroup("HighlightYank", {})
+autocmd("TextYankPost", {
+  group = yank_group,
+  pattern = "*",
+  callback = function()
+    vim.highlight.on_yank {
+      higroup = "IncSearch",
+      timeout = 40,
+    }
+  end,
+})
+
+-- Remember cursor position
+local cursor_group = augroup("RememberCursor", {})
+autocmd("BufReadPost", {
+  group = cursor_group,
   pattern = "*",
   callback = function()
     local last_pos = vim.fn.line "'\""
     if last_pos > 1 and last_pos <= vim.fn.line "$" then
       vim.cmd 'normal! g`"'
-      -- Center the screen
       vim.cmd "normal zz"
     end
   end,
 })
 
--- [[ Highlight on yank ]]
--- See `:help vim.highlight.on_yank()`
-local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
-vim.api.nvim_create_autocmd("TextYankPost", {
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-  group = highlight_group,
+-- Trim trailing whitespace on save
+local trim_group = augroup("TrimWhitespace", {})
+autocmd({ "BufWritePre" }, {
+  group = trim_group,
   pattern = "*",
+  command = [[%s/\s\+$//e]],
 })
 
 -- -- Keymaps for better default experience
