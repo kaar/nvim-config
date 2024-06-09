@@ -1,4 +1,4 @@
--- This extension is used to execute a selected query in the current buffer
+-- This plugin is used to execute a selected query in the current buffer
 -- and display the output in a new buffer
 --
 -- Usage:
@@ -34,7 +34,7 @@ local function execute_query(query)
   -- TODO:
   -- Sanity check query
   vim.fn.setenv("PGCONNECT_TIMEOUT", "2")
-  local psql_command = os.getenv("NVIM_PSQL_CMD")
+  local psql_command = os.getenv "NVIM_PSQL_CMD"
   if psql_command == nil then
     return "$NVIM_PSQL_CMD is not set"
   end
