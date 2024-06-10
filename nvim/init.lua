@@ -23,6 +23,9 @@ require("lazy").setup({ import = "plugins" }, {
     notify = false,
   },
 })
+-- TODO:
+-- https://github.com/jackMort/ChatGPT.nvim
+-- https://github.com/sindrets/diffview.nvim
 
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
