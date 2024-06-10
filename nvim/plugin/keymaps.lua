@@ -41,50 +41,26 @@ keymap({ "n", "o", "x" }, "<s-l>", "g_", opts)
 keymap("v", "<", "<gv", opts)
 keymap("v", ">", ">gv", opts)
 
---
+-- Maintaining the content of the default register intact while pasting
+-- over a selection in visual mode.
 keymap("x", "p", [["_dP]])
 
 -- Split navigation like I do in tmux
 keymap("n", "<leader>-", "<C-w>s", opts)
 keymap("n", "<leader>|", "<C-w>v", opts)
 
--- vim.keymap.set("n", "<leader>k", ":!python3 %<CR>", { noremap = false, silent = false })
--- :enew | .! <command>
---:vnew | read !python
+-- Execute `q` command in a new split
 keymap("n", "<leader>x", ":new tmp.md | read !q #<CR>", opts)
 
--- IDEAS:
--- Open a temporary question file.
--- If in the file, same command sends the file to `q` command
--- This sends the request to chatGPT
+-- Enhance the default search navigation by ensuring that the screen is
+-- centered on each match
+keymap("n", "n", "nzz", opts)
+keymap("n", "N", "Nzz", opts)
+keymap("n", "*", "*zz", opts)
+keymap("n", "#", "#zz", opts)
+keymap("n", "g*", "g*zz", opts)
+keymap("n", "g#", "g#zz", opts)
 
--- keymap("n", "n", "nzz", opts)
--- keymap("n", "N", "Nzz", opts)
--- keymap("n", "*", "*zz", opts)
--- keymap("n", "#", "#zz", opts)
--- keymap("n", "g*", "g*zz", opts)
--- keymap("n", "g#", "g#zz", opts)
---
-
---
--- vim.cmd [[:amenu 10.100 mousemenu.Goto\ Definition <cmd>lua vim.lsp.buf.definition()<CR>]]
--- vim.cmd [[:amenu 10.110 mousemenu.References <cmd>lua vim.lsp.buf.references()<CR>]]
--- -- vim.cmd [[:amenu 10.120 mousemenu.-sep- *]]
---
--- vim.keymap.set("n", "<RightMouse>", "<cmd>:popup mousemenu<CR>")
--- vim.keymap.set("n", "<Tab>", "<cmd>:popup mousemenu<CR>")
---
--- -- more good
---
--- -- tailwind bearable to work with
--- keymap({ "n", "x" }, "j", "gj", opts)
--- keymap({ "n", "x" }, "k", "gk", opts)
--- keymap("n", "<leader>w", ":lua vim.wo.wrap = not vim.wo.wrap<CR>", opts)
---
---
--- vim.api.nvim_set_keymap('t', '<C-;>', '<C-\\><C-n>', opts)
---
---
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 keymap({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
