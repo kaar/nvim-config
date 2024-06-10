@@ -52,10 +52,10 @@ return {
               disableOrganizeImports = true,
             },
             python = {
-              analysis = {
-                -- Ignore all files for analysis to exclusively use Ruff for linting
-                ignore = { "*" },
-              },
+              -- analysis = {
+              --   -- Ignore all files for analysis to exclusively use Ruff for linting
+              --   ignore = { "*" },
+              -- },
             },
           },
         },
@@ -80,24 +80,33 @@ return {
             semanticTokensProvider = vim.NIL,
           },
         },
-        rust_analyzer = true,
-        svelte = true,
-        templ = true,
-        cssls = true,
+        -- rust_analyzer = true,
+        -- svelte = true,
+        -- templ = true,
+        -- cssls = true,
 
         -- Probably want to disable formatting for this lang server
-        tsserver = {
-          server_capabilities = {
-            documentFormattingProvider = false,
-          },
-        },
-        biome = true,
+        -- tsserver = {
+        --   server_capabilities = {
+        --     documentFormattingProvider = false,
+        --   },
+        -- },
+        -- biome = true,
 
         jsonls = {
           settings = {
             json = {
               schemas = require("schemastore").json.schemas(),
               validate = { enable = true },
+            },
+          },
+          setup = {
+            commands = {
+              Format = {
+                function()
+                  vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line "$", 0 })
+                end,
+              },
             },
           },
         },
@@ -128,7 +137,7 @@ return {
       local ensure_installed = {
         "stylua",
         "lua_ls",
-        "delve",
+        -- "delve",
       }
 
       vim.list_extend(ensure_installed, servers_to_install)
