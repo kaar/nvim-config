@@ -2,5 +2,5 @@
 
 ```sh
 git clone https://github.com/kaar/nvim-config
-ln -s nvim-config/nvim ~/.config/nvim
+ln -fs $PWD/nvim ~/.config/nvim
 ```
