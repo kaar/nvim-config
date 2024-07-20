@@ -76,3 +76,10 @@ opt.fillchars:append {
 }
 
 opt.shortmess:append "c"
+
+-- Disable editorconfig, not shure why this is set by default and who come up with this idea...
+-- Could not figure out why my options and config under /after/ftplugin/... were not working.
+-- n -V1 example.yaml
+-- verbose:set shiftwidth?
+-- set by ~/.local/share/nvim/runtime/lua/editorconfig.lua
+vim.g.editorconfig = false
