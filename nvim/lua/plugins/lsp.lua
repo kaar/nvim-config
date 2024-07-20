@@ -140,6 +140,7 @@ return {
       local ensure_installed = {
         "stylua",
         "lua_ls",
+        "ruff",
         -- "delve",
       }
 
@@ -208,6 +209,7 @@ return {
       require("conform").setup {
         formatters_by_ft = {
           lua = { "stylua" },
+          python = { "ruff" },
         },
       }
 
