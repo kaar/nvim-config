@@ -4,6 +4,9 @@
 -- Usage:
 -- 1. Select the query you want to execute
 -- 2. Press <leader>e
+--
+-- const
+PSQL_CMD = os.getenv "NVIM_PSQL_CMD"
 
 local function show_output(output)
   -- TODO
