@@ -7,6 +7,7 @@
 --
 -- const
 PSQL_CMD = os.getenv "NVIM_PSQL_CMD"
+SQL_OUTPUT_PATH = ""
 
 local function show_output(output)
   -- TODO
@@ -14,9 +15,17 @@ local function show_output(output)
   -- Format output
   -- Open in a temporary buffer
   -- Select the buffer
+  --
+  -- Save the output to a file in SQL_OUTPUT_PATH
+  -- with the name of the executing file + timestamp
+  -- Also store the query that was executed
+  --
+  -- local output_file = SQL_OUTPUT_PATH .. "/sqls_output.sql"
   local tempfile = vim.fn.tempname() .. ".sqls_output"
   local bufnr = vim.fn.bufnr(tempfile, true)
   vim.api.nvim_buf_set_lines(bufnr, 0, 1, false, vim.split(output, "\n"))
+
+  -- Open the buffer in a new window
   vim.cmd(("%s pedit %s"):format("", tempfile))
   vim.api.nvim_set_option_value("filetype", "sqls_output", { buf = bufnr })
 end
