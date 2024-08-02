@@ -67,4 +67,9 @@ end
 
 -- For faster testing
 -- :nmap <leader>w :write<CR>:luafile %<CR>
-vim.api.nvim_set_keymap("v", "<leader>e", ":lua QuerySelection()<CR>", { noremap = false, silent = true })
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "sql",
+  callback = function()
+    vim.api.nvim_set_keymap("v", "<leader>e", ":lua QuerySelection()<CR>", { noremap = false, silent = true })
+  end,
+})
