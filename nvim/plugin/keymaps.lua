@@ -8,6 +8,7 @@ keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
 keymap("n", "<leader>q", "<cmd>confirm q<CR>", opts)
 keymap("n", "<leader>w", "<cmd>w!<CR>", opts)
 keymap("n", "<leader>e", ":NvimTreeToggle<CR>", { silent = true })
+keymap("n", "<leader>c", ":bd<CR>", { desc = "Close buffer", silent = true })
 
 -- Oil, https://github.com/stevearc/oil.nvim
 keymap("n", "-", "<CMD>Oil<CR>", { desc = "Oil, Open parent directory" })
