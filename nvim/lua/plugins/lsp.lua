@@ -45,6 +45,9 @@ return {
               args = {},
             },
           },
+
+        },
+        terraformls = {
         },
         pyright = {
           settings = {
