@@ -84,7 +84,7 @@ return {
             semanticTokensProvider = vim.NIL,
           },
         },
-        -- rust_analyzer = true,
+        rust_analyzer = true,
         -- svelte = true,
         -- templ = true,
         -- cssls = true,
