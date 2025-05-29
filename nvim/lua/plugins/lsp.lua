@@ -129,6 +129,17 @@ return {
             },
           },
         },
+        omnisharp = {
+          -- This works, Don't like the solution. Had so many issues with dotnet and omnisharp...
+          cmd = { "dotnet", "/home/tibber/.local/share/nvim/mason/packages/omnisharp/OmniSharp.dll" },
+          enable_roslyn_analyzers = true,
+          organize_imports_on_format = true,
+          enable_import_completion = true,
+          capabilities = capabilities,
+          root_dir = function()
+            return vim.loop.cwd() -- current working directory
+          end,
+        },
       }
 
       local servers_to_install = vim.tbl_filter(function(key)
@@ -145,8 +156,9 @@ return {
         "stylua",
         "lua_ls",
         "ruff",
-        -- "delve",
+        "omnisharp",
       }
+
 
       vim.list_extend(ensure_installed, servers_to_install)
       require("mason-tool-installer").setup { ensure_installed = ensure_installed }
@@ -177,18 +189,28 @@ return {
           end
 
           local builtin = require "telescope.builtin"
+          local map = vim.keymap.set
 
           vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
-          vim.keymap.set("n", "gd", builtin.lsp_definitions, { buffer = 0 })
-          vim.keymap.set("n", "gl", vim.diagnostic.open_float, { buffer = 0 })
-          vim.keymap.set("n", "gr", builtin.lsp_references, { buffer = 0 })
-          vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = 0 })
-          vim.keymap.set("n", "gT", vim.lsp.buf.type_definition, { buffer = 0 })
-          vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
-          vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { buffer = 0 })
+          map("n", "gd", builtin.lsp_definitions, { buffer = 0 })
+          map("n", "gl", vim.diagnostic.open_float, { buffer = 0 })
+          map("n", "gr", builtin.lsp_references, { buffer = 0 })
+          map("n", "gD", vim.lsp.buf.declaration, { buffer = 0 })
+          map("n", "gT", vim.lsp.buf.type_definition, { buffer = 0 })
+          map("n", "K", vim.lsp.buf.hover, { buffer = 0 })
+          map("n", "<leader>lf", vim.lsp.buf.format, { buffer = 0 })
+          map("n", "<space>cr", vim.lsp.buf.rename, { buffer = 0 })
+          map("n", "<space>ca", vim.lsp.buf.code_action, { buffer = 0 })
 
-          vim.keymap.set("n", "<space>cr", vim.lsp.buf.rename, { buffer = 0 })
-          vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, { buffer = 0 })
+          -- omnisharp_extended overrides
+          -- https://github.com/Hoffs/omnisharp-extended-lsp.nvim
+          if client and client.name == "omnisharp" then
+            local omnisharp_ext = require('omnisharp_extended')
+            map("n", "gd", omnisharp_ext.lsp_definition, { buffer = 0 })
+            map("n", "gr", omnisharp_ext.lsp_references, { buffer = 0, desc = "[G]oto [R]eferences" })
+            map("n", "gI", omnisharp_ext.lsp_implementation, { buffer = 0, desc = "[G]oto [I]mplementation" })
+            map("n", "<leader>D", omnisharp_ext.lsp_type_definition, { buffer = 0, desc = "Type [D]efinition" })
+          end
 
           local filetype = vim.bo[bufnr].filetype
           if disable_semantic_tokens[filetype] then
