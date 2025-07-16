@@ -1,15 +1,22 @@
--- https://github.com/github/zbirenbaum/copilot.lua
+-- https://github.com/zbirenbaum/copilot.lua
 -- Accept: <C-e>
 -- Open: <M-CR>
 -- Jump to next: <M-]>
 -- Jump to prev: <M-[>
+--
+
+-- Only enable if has network to prevent errors when offline
+local function has_network()
+  return os.execute "ping -c1 -W1 google.com >/dev/null 2>&1" == 0
+end
+
 return {
   {
     "zbirenbaum/copilot.lua",
     dependencies = {
       { "hrsh7th/nvim-cmp" },
     },
-    enabled = true,
+    enabled = has_network,
     cmd = "Copilot",
     event = "InsertEnter",
     keymap = {
