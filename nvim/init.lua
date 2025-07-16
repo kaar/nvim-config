@@ -167,4 +167,4 @@ end
 
 -- Key mappings
 vim.keymap.set("n", "<leader>t", FloatingTerminal, { noremap = true, silent = true, desc = "Toggle floating terminal" })
-vim.keymap.set("t", "<Esc>", CloseFloatingTerminal, { noremap = true, silent = true, desc = "Close terminal" })
+vim.keymap.set("t", "<Esc><Esc>", CloseFloatingTerminal, { noremap = true, silent = true, desc = "Close terminal" })
