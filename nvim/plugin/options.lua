@@ -60,15 +60,17 @@ opt.errorbells = false              -- No error bells
 opt.backspace = "indent,eol,start"  -- Better backspace behavior
 opt.autochdir = false               -- Don't auto change directory
 opt.iskeyword:append("-")           -- Treat dash as part of word
-opt.path:append("**")               -- include subdirectories in search
+opt.path:append("**")               -- Include subdirectories in search
 opt.selection = "exclusive"         -- Selection behavior
 opt.mouse = "a"                     -- Enable mouse support
 opt.clipboard:append("unnamedplus") -- Use system clipboard
 opt.modifiable = true               -- Allow buffer modifications
-opt.encoding = "UTF-8"              -- Set encoding
+opt.encoding = "utf-8"              -- Set encoding
 opt.inccommand = "split"            -- Show effect of substitution command in real time
-opt.splitbelow = true               -- force all horizontal splits to go below current window
-opt.splitright = true               -- force all vertical splits to go to the right of current window
+opt.splitbelow = true               -- Force all horizontal splits to go below current window
+opt.splitright = true               -- Force all vertical splits to go to the right of current window
+
+
 
 -- Disable editorconfig, not sure why this is set by default and who come up with this idea...
 -- Could not figure out why my options and config under /after/ftplugin/... were not working.
