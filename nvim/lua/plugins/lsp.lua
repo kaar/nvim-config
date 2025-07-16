@@ -11,9 +11,6 @@ return {
       -- Annoying Fidget in the corner
       { "j-hui/fidget.nvim", opts = {} },
 
-      -- Autoformatting
-      "stevearc/conform.nvim",
-
       -- Schema information
       "b0o/SchemaStore.nvim",
     },
@@ -203,24 +200,6 @@ return {
               client.server_capabilities[k] = v
             end
           end
-        end,
-      })
-
-      -- -- Autoformatting Setup
-      require("conform").setup {
-        formatters_by_ft = {
-          lua = { "stylua" },
-          python = { "ruff" },
-        },
-      }
-
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        callback = function(args)
-          require("conform").format {
-            bufnr = args.buf,
-            lsp_fallback = true,
-            quiet = true,
-          }
         end,
       })
     end,
