@@ -16,17 +16,18 @@ keymap("n", "<leader>e", "<CMD>Oil<CR>", { desc = "Oil, Open parent directory" }
 -- keymap('n', '<leader>e', require("oil").toggle_float)
 
 -- Better window navigation
-keymap("n", "<m-h>", "<C-w>h", opts)
-keymap("n", "<m-j>", "<C-w>j", opts)
-keymap("n", "<m-k>", "<C-w>k", opts)
-keymap("n", "<m-l>", "<C-w>l", opts)
+keymap("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
+keymap("n", "<C-j>", "<C-w>j", { desc = "Move to bottom window" })
+keymap("n", "<C-k>", "<C-w>k", { desc = "Move to top window" })
+keymap("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
+-- Switch to the last accessed window
 keymap("n", "<m-tab>", "<c-6>", opts)
 
 -- Resize with arrows
-keymap("n", "<C-Up>", ":resize -2<CR>", opts)
-keymap("n", "<C-Down>", ":resize +2<CR>", opts)
-keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
-keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
+keymap("n", "<C-Up>", ":resize +2<CR>", { desc = "Increase window height" })
+keymap("n", "<C-Down>", ":resize -2<CR>", { desc = "Decrease window height" })
+keymap("n", "<C-Left>", ":vertical resize -2<CR>", { desc = "Decrease window width" })
+keymap("n", "<C-Right>", ":vertical resize +2<CR>", { desc = "Increase window width" })
 
 -- Move current line / block with Alt-j/k
 keymap("n", "<A-j>", ":m .+1<CR>==", opts)
@@ -35,8 +36,8 @@ keymap("v", "<A-j>", ":m '>+1<CR>gv-gv", opts)
 keymap("v", "<A-k>", ":m '<-2<CR>gv-gv", opts)
 
 -- Use s-h/l for beginning/end of line
-keymap({ "n", "o", "x" }, "<s-h>", "^", opts)
-keymap({ "n", "o", "x" }, "<s-l>", "g_", opts)
+keymap({ "n", "o", "x" }, "<s-h>", "^", { desc = "Go to start of line" })
+keymap({ "n", "o", "x" }, "<s-l>", "g_", { desc = "Go to end of line" })
 
 -- Stay in indent mode
 keymap("v", "<", "<gv", opts)
