@@ -51,7 +51,7 @@ opt.undodir = vim.fn.expand("~/.vim/undodir") -- Undo directory
 opt.updatetime = 300                          -- Faster completion (4000ms default)
 opt.timeoutlen = 500                          -- Key timeout duration, mapped sequence to complete (300ms was a bit too short)
 opt.ttimeoutlen = 0                           -- Key code timeout
-opt.autoread = false                          -- Don't reload files changed outside vim
+opt.autoread = true                           -- Reload files changed outside vim
 opt.autowrite = false                         -- Don't auto save
 
 -- Behavior
