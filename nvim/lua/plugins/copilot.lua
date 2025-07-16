@@ -16,7 +16,7 @@ return {
     dependencies = {
       { "hrsh7th/nvim-cmp" },
     },
-    enabled = has_network,
+    enabled = false,
     cmd = "Copilot",
     event = "InsertEnter",
     keymap = {
