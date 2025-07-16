@@ -1,85 +1,78 @@
+-- See `:help vim.o`
 local opt = vim.opt
 
-opt.backup = false
--- See `:help vim.o`
-opt.hlsearch = true
-opt.number = true
-opt.breakindent = true
-opt.undofile = true
+-- Basic
+opt.number = true          -- Line numbers
+opt.relativenumber = false -- Relative line numbers
+opt.cursorline = true      -- Highlight current line
+opt.wrap = false           -- Don't wrap lines
+opt.scrolloff = 10         -- Lines above/below cursor
+opt.sidescrolloff = 8      -- Keep 8 columns left/right of cursor
 
--- Sync clipboard between OS and Neovim.
--- See `:help 'clipboard'`
-opt.clipboard = "unnamedplus"
+-- Indentation
+opt.tabstop = 2        -- Tab width
+opt.shiftwidth = 2     -- Number of spaces inserted for each indentation
+opt.softtabstop = 2    -- Soft tab stop
+opt.expandtab = true   -- Convert tabs to spaces
+opt.smartindent = true -- Smart auto-indenting
+opt.autoindent = true  -- Copy indent from current line
 
--- Case-insensitive searching UNLESS \C or capital in search
-opt.ignorecase = true
-opt.smartcase = true
+-- Search
+opt.ignorecase = true -- Case insensitive search
+opt.smartcase = true  -- Case sensitive if uppercase in search
+opt.hlsearch = true   -- Highlight all matches on previous search pattern
+opt.incsearch = true  -- Show matches as you type
 
--- Keep signcolumn on by default (Column left to the line numbers)
-opt.signcolumn = "yes"
+-- Appearance
+opt.termguicolors = true                      -- set term gui colors (most terminals support this)
+opt.signcolumn = "yes"                        -- Always show sign column, otherwise it would shift the text each time
+opt.colorcolumn = "100"                       -- Show column at 100 characters
+opt.showmatch = true                          -- Highlight matching brackets
+opt.matchtime = 2                             -- How long to show matching bracket
+opt.cmdheight = 1                             -- More space in the nvim command line for displaying messages
+opt.completeopt = "menuone,noinsert,noselect" -- Completion options
+opt.showmode = false                          -- Don't show mode (e.g., -- INSERT --)
+opt.pumheight = 10                            -- Popup menu height
+opt.pumblend = 10                             -- Popup menu transparency
+opt.winblend = 0                              -- Floating window transparency
+opt.conceallevel = 0                          -- Don't hide markup, so that `` is visible in markdown files
+opt.concealcursor = ""                        -- Don't hide cursor line markup
+opt.lazyredraw = true                         -- Don't redraw during macros
+opt.synmaxcol = 300                           -- Syntax highlighting limit
+opt.laststatus = 3                            -- Global status line
+opt.ruler = false                             -- Don't show ruler
 
--- Decrease update time
--- vim.o.updatetime = 250
--- vim.o.timeout = true
--- vim.o.timeoutlen = 300
+-- File handling
+opt.backup = false                            -- Don't create backup files
+opt.writebackup = false                       -- Don't create backup before writing
+opt.swapfile = false                          -- Don't create swap files
+opt.undofile = true                           -- Persistent undo
+opt.undodir = vim.fn.expand("~/.vim/undodir") -- Undo directory
+opt.updatetime = 300                          -- Faster completion (4000ms default)
+opt.timeoutlen = 500                          -- Key timeout duration, mapped sequence to complete (300ms was a bit too short)
+opt.ttimeoutlen = 0                           -- Key code timeout
+opt.autoread = false                          -- Don't reload files changed outside vim
+opt.autowrite = false                         -- Don't auto save
 
--- Show effect of substitution command in real time
-opt.inccommand = "split"
+-- Behavior
+opt.hidden = true                   -- Allow hidden buffers
+opt.errorbells = false              -- No error bells
+opt.backspace = "indent,eol,start"  -- Better backspace behavior
+opt.autochdir = false               -- Don't auto change directory
+opt.iskeyword:append("-")           -- Treat dash as part of word
+opt.path:append("**")               -- include subdirectories in search
+opt.selection = "exclusive"         -- Selection behavior
+opt.mouse = "a"                     -- Enable mouse support
+opt.clipboard:append("unnamedplus") -- Use system clipboard
+opt.modifiable = true               -- Allow buffer modifications
+opt.encoding = "UTF-8"              -- Set encoding
+opt.inccommand = "split"            -- Show effect of substitution command in real time
+opt.splitbelow = true               -- force all horizontal splits to go below current window
+opt.splitright = true               -- force all vertical splits to go to the right of current window
 
-opt.backup = false -- creates a backup file
-opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
-opt.cmdheight = 1 -- more space in the neovim command line for displaying messages
-opt.completeopt = {
-  "menuone",
-  "noselect",
-} -- mostly just for cmp
-opt.conceallevel = 0 -- so that `` is visible in markdown files
-opt.fileencoding = "utf-8" -- the encoding written to a file
-opt.hlsearch = true -- highlight all matches on previous search pattern
-opt.ignorecase = true -- ignore case in search patterns
-opt.mouse = "a" -- allow the mouse to be used in neovim
-opt.pumheight = 10 -- pop up menu height
-opt.pumblend = 10
-opt.showmode = false -- we don't need to see things like -- INSERT -- anymore
-opt.showtabline = 1 -- always show tabs
-opt.smartcase = true -- smart case
-opt.smartindent = true -- make indenting smarter again
-opt.splitbelow = true -- force all horizontal splits to go below current window
-opt.splitright = true -- force all vertical splits to go to the right of current window
-opt.swapfile = false -- creates a swapfile
-opt.termguicolors = true -- set term gui colors (most terminals support this)
-opt.timeoutlen = 1000 -- time to wait for a mapped sequence to complete (in milliseconds)
-opt.undofile = true -- enable persistent undo
-opt.updatetime = 100 -- faster completion (4000ms default)
-opt.writebackup = false -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
-opt.expandtab = true -- convert tabs to spaces
-opt.shiftwidth = 2 -- the number of spaces inserted for each indentation
-opt.tabstop = 2 -- insert 2 spaces for a tab
-opt.cursorline = true -- highlight the current line
-opt.number = true -- set numbered lines
-opt.laststatus = 3
-opt.showcmd = false
-opt.ruler = false
-opt.relativenumber = false -- set relative numbered lines
-opt.numberwidth = 4 -- set number column width to 2 {default 4}
-opt.signcolumn = "yes" -- always show the sign column, otherwise it would shift the text each time
-opt.wrap = false -- display lines as one long line
-opt.scrolloff = 0
-opt.sidescrolloff = 8
-opt.guifont = "monospace:h17" -- the font used in graphical neovim applications
-opt.title = false
--- colorcolumn = "80",
--- colorcolumn = "120",
-opt.fillchars = opt.fillchars + "eob: "
-opt.fillchars:append {
-  stl = " ",
-}
-
-opt.shortmess:append "c"
-
--- Disable editorconfig, not shure why this is set by default and who come up with this idea...
+-- Disable editorconfig, not sure why this is set by default and who come up with this idea...
 -- Could not figure out why my options and config under /after/ftplugin/... were not working.
 -- n -V1 example.yaml
 -- verbose:set shiftwidth?
 -- set by ~/.local/share/nvim/runtime/lua/editorconfig.lua
-vim.g.editorconfig = false
+-- vim.g.editorconfig = false
