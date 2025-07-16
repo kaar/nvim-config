@@ -16,10 +16,12 @@ keymap("n", "<leader>e", "<CMD>Oil<CR>", { desc = "Oil, Open parent directory" }
 -- keymap('n', '<leader>e', require("oil").toggle_float)
 
 -- Better window navigation
-keymap("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
-keymap("n", "<C-j>", "<C-w>j", { desc = "Move to bottom window" })
-keymap("n", "<C-k>", "<C-w>k", { desc = "Move to top window" })
-keymap("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
+-- Using vim-tmux-navigator
+-- keymap("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
+-- keymap("n", "<C-j>", "<C-w>j", { desc = "Move to bottom window" })
+-- keymap("n", "<C-k>", "<C-w>k", { desc = "Move to top window" })
+-- keymap("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
+
 -- Switch to the last accessed window
 keymap("n", "<m-tab>", "<c-6>", opts)
 
