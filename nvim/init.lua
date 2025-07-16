@@ -66,7 +66,7 @@ autocmd({ "BufWritePre" }, {
 })
 
 -- Set filetype for NRQL files
-vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = "*.nrql",
-  command = "set filetype=sql"
+  command = "set filetype=sql",
 })
