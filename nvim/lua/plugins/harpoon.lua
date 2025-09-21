@@ -9,12 +9,12 @@ return {
     local harpoon = require "harpoon"
     harpoon:setup()
 
-    vim.keymap.set("n", "<m-h><m-m>", function()
+    vim.keymap.set("n", "<leader>m", function()
       harpoon:list():add()
-    end)
-    vim.keymap.set("n", "<m-h><m-l>", function()
+    end, { desc = "[M]ark file with Harpoon" })
+    vim.keymap.set("n", "<leader>l", function()
       harpoon.ui:toggle_quick_menu(harpoon:list())
-    end)
+    end, { desc = "[L]ist Harpoon files" })
 
     -- Set <space>1..<space>5 be my shortcuts to moving to the files
     for _, idx in ipairs { 1, 2, 3, 4, 5 } do
