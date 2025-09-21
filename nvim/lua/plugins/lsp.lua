@@ -59,6 +59,22 @@ return {
           },
         },
         bashls = true,
+        clangd = {
+          cmd = {
+            "clangd",
+            "--background-index",
+            "--clang-tidy",
+            "--header-insertion=iwyu",
+            "--completion-style=detailed",
+            "--function-arg-placeholders",
+            "--fallback-style=llvm",
+          },
+          init_options = {
+            usePlaceholders = true,
+            completeUnimported = true,
+            clangdFileStatus = true,
+          },
+        },
         gopls = {
           settings = {
             gopls = {
@@ -140,6 +156,7 @@ return {
         "stylua",
         "lua_ls",
         "ruff",
+        "clangd",
       }
 
       vim.list_extend(ensure_installed, servers_to_install)
