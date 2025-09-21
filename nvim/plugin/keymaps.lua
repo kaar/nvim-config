@@ -75,3 +75,6 @@ keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- UndoTree
 keymap("n", "<leader>u", vim.cmd.UndotreeToggle)
+
+-- Man page for word under cursor
+keymap("n", "<leader>K", ":Man <C-r><C-w><CR>", { desc = "Open man page for word under cursor" })
