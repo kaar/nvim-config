@@ -98,14 +98,9 @@ return {
         rust_analyzer = true,
         -- svelte = true,
         -- templ = true,
-        -- cssls = true,
-
-        -- Probably want to disable formatting for this lang server
-        -- tsserver = {
-        --   server_capabilities = {
-        --     documentFormattingProvider = false,
-        --   },
-        -- },
+        cssls = true,
+        html = true,
+        ts_ls = true,
         -- biome = true,
 
         jsonls = {
@@ -157,6 +152,7 @@ return {
         "lua_ls",
         "ruff",
         "clangd",
+        "prettier",
       }
 
       vim.list_extend(ensure_installed, servers_to_install)
