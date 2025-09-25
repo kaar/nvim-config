@@ -1,14 +1,15 @@
--- Took inspiration from https://github.com/tjdevries/config.nvim
+-- Using native vim.lsp.config (Neovim 0.11+)
 return {
   {
-    "neovim/nvim-lspconfig",
+    "williamboman/mason.nvim",
     dependencies = {
       "folke/neodev.nvim",
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
 
-      -- Annoying Fidget in the corner
+      -- Still needed for neodev.nvim compatibility
+      "neovim/nvim-lspconfig",
+
+      -- Progress notifications
       { "j-hui/fidget.nvim", opts = {} },
 
       -- Schema information
@@ -27,158 +28,203 @@ return {
         capabilities = require("cmp_nvim_lsp").default_capabilities()
       end
 
-      -- https://github.com/neovim/nvim-lspconfig
-      local lspconfig = require "lspconfig"
+      -- Global configuration for all LSP clients
+      vim.lsp.config('*', {
+        capabilities = capabilities,
+        root_markers = { '.git' },
+      })
 
-      local servers = {
-        -- Configure `ruff-lsp`.
-        -- See: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#ruff_lsp
-        -- For the default config, along with instructions on how to customize the settings
-        -- Formatting: https://github.com/astral-sh/ruff-lsp/issues/119#issuecomment-1595628355
-        ruff = {
-          init_options = {
-            settings = {
-              -- Any extra CLI arguments for `ruff` go here.
-              args = {},
-            },
-          },
-        },
-        terraformls = {},
-        pyright = {
+      -- Configure individual LSP servers using vim.lsp.config
+      vim.lsp.config('ruff', {
+        cmd = { 'ruff', 'server' },
+        filetypes = { 'python' },
+        root_markers = { 'pyproject.toml', 'setup.py', 'setup.cfg', 'requirements.txt', '.git' },
+        init_options = {
           settings = {
-            -- pyright = {
-            --   -- Using Ruff's import organizer
-            --   disableOrganizeImports = true,
-            -- },
-            -- python = {
-            --   analysis = {
-            --     -- Ignore all files for analysis to exclusively use Ruff for linting
-            --     ignore = { "*" },
-            --   },
-            -- },
+            args = {},
           },
         },
-        bashls = true,
-        clangd = {
-          cmd = {
-            "clangd",
-            "--background-index",
-            "--clang-tidy",
-            "--header-insertion=iwyu",
-            "--completion-style=detailed",
-            "--function-arg-placeholders",
-            "--fallback-style=llvm",
-          },
-          init_options = {
-            usePlaceholders = true,
-            completeUnimported = true,
-            clangdFileStatus = true,
-          },
-        },
-        gopls = {
-          settings = {
-            gopls = {
-              hints = {
-                assignVariableTypes = true,
-                compositeLiteralFields = true,
-                compositeLiteralTypes = true,
-                constantValues = true,
-                functionTypeParameters = true,
-                parameterNames = true,
-                rangeVariableTypes = true,
-              },
-            },
-          },
-        },
-        lua_ls = {
-          server_capabilities = {
-            semanticTokensProvider = vim.NIL,
-          },
-        },
-        rust_analyzer = true,
-        -- svelte = true,
-        -- templ = true,
-        cssls = true,
-        html = {
-          cmd = { "vscode-html-language-server", "--stdio" },
-          filetypes = { "html", "templ" },
-          init_options = {
-            configurationSection = { "html", "css", "javascript" },
-            embeddedLanguages = {
-              css = true,
-              javascript = true
-            },
-            provideFormatter = true
-          },
-        },
-        ts_ls = true,
-        -- biome = true,
+      })
 
-        jsonls = {
-          settings = {
-            json = {
-              schemas = require("schemastore").json.schemas(),
-              validate = { enable = true },
-            },
-          },
-          setup = {
-            commands = {
-              Format = {
-                function()
-                  vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line "$", 0 })
-                end,
-              },
+      vim.lsp.config('terraformls', {
+        cmd = { 'terraform-ls', 'serve' },
+        filetypes = { 'terraform', 'terraform-vars' },
+        root_markers = { '.terraform', '*.tf', '.git' },
+      })
+
+      vim.lsp.config('pyright', {
+        cmd = { 'pyright-langserver', '--stdio' },
+        filetypes = { 'python' },
+        root_markers = { 'pyproject.toml', 'setup.py', 'setup.cfg', 'requirements.txt', '.git' },
+        settings = {
+          -- pyright = {
+          --   disableOrganizeImports = true,
+          -- },
+          -- python = {
+          --   analysis = {
+          --     ignore = { "*" },
+          --   },
+          -- },
+        },
+      })
+
+      vim.lsp.config('bashls', {
+        cmd = { 'bash-language-server', 'start' },
+        filetypes = { 'sh', 'bash' },
+        root_markers = { '.git' },
+      })
+
+      vim.lsp.config('clangd', {
+        cmd = {
+          'clangd',
+          '--background-index',
+          '--clang-tidy',
+          '--header-insertion=iwyu',
+          '--completion-style=detailed',
+          '--function-arg-placeholders',
+          '--fallback-style=llvm',
+        },
+        filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto' },
+        root_markers = { '.clangd', '.clang-tidy', '.clang-format', 'compile_commands.json', 'compile_flags.txt', 'configure.ac', '.git' },
+        init_options = {
+          usePlaceholders = true,
+          completeUnimported = true,
+          clangdFileStatus = true,
+        },
+      })
+
+      vim.lsp.config('gopls', {
+        cmd = { 'gopls' },
+        filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
+        root_markers = { 'go.work', 'go.mod', '.git' },
+        settings = {
+          gopls = {
+            hints = {
+              assignVariableTypes = true,
+              compositeLiteralFields = true,
+              compositeLiteralTypes = true,
+              constantValues = true,
+              functionTypeParameters = true,
+              parameterNames = true,
+              rangeVariableTypes = true,
             },
           },
         },
+      })
 
-        yamlls = {
-          settings = {
-            yaml = {
-              schemaStore = {
-                enable = false,
-                url = "",
-              },
-              schemas = require("schemastore").yaml.schemas(),
-              format = {
-                enable = true,
-              },
+      vim.lsp.config('lua_ls', {
+        cmd = { 'lua-language-server' },
+        filetypes = { 'lua' },
+        root_markers = { '.luarc.json', '.luarc.jsonc', '.luacheckrc', '.stylua.toml', 'stylua.toml', 'selene.toml', 'selene.yml', '.git' },
+        settings = {
+          Lua = {
+            runtime = {
+              version = 'LuaJIT',
+            },
+            workspace = {
+              checkThirdParty = false,
             },
           },
         },
-      }
+      })
 
-      local servers_to_install = vim.tbl_filter(function(key)
-        local t = servers[key]
-        if type(t) == "table" then
-          return not t.manual_install
-        else
-          return t
-        end
-      end, vim.tbl_keys(servers))
+      vim.lsp.config('rust_analyzer', {
+        cmd = { 'rust-analyzer' },
+        filetypes = { 'rust' },
+        root_markers = { 'Cargo.toml', 'rust-project.json', '.git' },
+      })
 
+      vim.lsp.config('cssls', {
+        cmd = { 'vscode-css-language-server', '--stdio' },
+        filetypes = { 'css', 'scss', 'less' },
+        root_markers = { 'package.json', '.git' },
+      })
+
+      vim.lsp.config('html', {
+        cmd = { 'vscode-html-language-server', '--stdio' },
+        filetypes = { 'html', 'templ' },
+        root_markers = { 'package.json', '.git' },
+        init_options = {
+          configurationSection = { 'html', 'css', 'javascript' },
+          embeddedLanguages = {
+            css = true,
+            javascript = true,
+          },
+          provideFormatter = true,
+        },
+      })
+
+      vim.lsp.config('ts_ls', {
+        cmd = { 'typescript-language-server', '--stdio' },
+        filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' },
+        root_markers = { 'tsconfig.json', 'package.json', 'jsconfig.json', '.git' },
+      })
+
+      vim.lsp.config('jsonls', {
+        cmd = { 'vscode-json-language-server', '--stdio' },
+        filetypes = { 'json', 'jsonc' },
+        root_markers = { 'package.json', '.git' },
+        settings = {
+          json = {
+            schemas = require('schemastore').json.schemas(),
+            validate = { enable = true },
+          },
+        },
+      })
+
+      vim.lsp.config('yamlls', {
+        cmd = { 'yaml-language-server', '--stdio' },
+        filetypes = { 'yaml', 'yaml.docker-compose', 'yaml.gitlab' },
+        root_markers = { '.git' },
+        settings = {
+          yaml = {
+            schemaStore = {
+              enable = false,
+              url = '',
+            },
+            schemas = require('schemastore').yaml.schemas(),
+            format = {
+              enable = true,
+            },
+          },
+        },
+      })
+
+      -- Mason setup for tool installation
       require("mason").setup()
       local ensure_installed = {
         "stylua",
-        "lua_ls",
+        "lua-language-server",
         "ruff",
         "clangd",
         "prettier",
+        "bash-language-server",
+        "terraform-ls",
+        "pyright",
+        "gopls",
+        "rust-analyzer",
+        "typescript-language-server",
+        "yaml-language-server",
       }
 
-      vim.list_extend(ensure_installed, servers_to_install)
       require("mason-tool-installer").setup { ensure_installed = ensure_installed }
 
-      for name, config in pairs(servers) do
-        if config == true then
-          config = {}
-        end
-        config = vim.tbl_deep_extend("force", {}, {
-          capabilities = capabilities,
-        }, config)
-
-        lspconfig[name].setup(config)
-      end
+      -- Enable all configured LSP servers
+      vim.lsp.enable({
+        'ruff',
+        'terraformls',
+        'pyright',
+        'bashls',
+        'clangd',
+        'gopls',
+        'lua_ls',
+        'rust_analyzer',
+        'cssls',
+        'html',
+        'ts_ls',
+        'jsonls',
+        'yamlls',
+      })
 
       local disable_semantic_tokens = {
         lua = true,
@@ -188,11 +234,6 @@ return {
         callback = function(args)
           local bufnr = args.buf
           local client = assert(vim.lsp.get_client_by_id(args.data.client_id), "must have valid client")
-
-          local settings = servers[client.name]
-          if type(settings) ~= "table" then
-            settings = {}
-          end
 
           local builtin = require "telescope.builtin"
           local map = vim.keymap.set
@@ -211,18 +252,6 @@ return {
           local filetype = vim.bo[bufnr].filetype
           if disable_semantic_tokens[filetype] then
             client.server_capabilities.semanticTokensProvider = nil
-          end
-
-          -- Override server capabilities
-          if settings.server_capabilities then
-            for k, v in pairs(settings.server_capabilities) do
-              if v == vim.NIL then
-                ---@diagnostic disable-next-line: cast-local-type
-                v = nil
-              end
-
-              client.server_capabilities[k] = v
-            end
           end
         end,
       })
