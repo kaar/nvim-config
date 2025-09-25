@@ -199,6 +199,7 @@ return {
         "clangd",
         "prettier",
         "bash-language-server",
+        "shfmt",
         "terraform-ls",
         "pyright",
         "gopls",
