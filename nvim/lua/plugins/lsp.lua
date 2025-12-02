@@ -87,6 +87,17 @@ return {
           },
         },
 
+        -- lua_ls quit with exit code 127 and signal 0.
+        -- [ERROR][2025-12-02 20:09:24] ...p/_transport.lua:36	"rpc"	"lua-language-server"	"stderr"
+        -- "/home/kaar/.local/share/nvim/mason/packages/lua-language-server/libexec/bin/lua-language-server:
+        -- error while loading shared libraries: libbfd-2.38-system.so: cannot open shared object file: No such file or directory\n"
+        --
+        -- https://github.com/LuaLS/lua-language-server/issues/3301
+        --
+        -- I can find /lib/libbfd-2.45.1.so
+        -- Not sure why it's looking for 2.38 specifically and why it does not exists on the system.
+        -- Others have the same issue. See Github issue above.
+        --
         lua_ls = {
           cmd = { 'lua-language-server' },
           filetypes = { 'lua' },
