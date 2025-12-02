@@ -98,6 +98,9 @@ return {
         -- Not sure why it's looking for 2.38 specifically and why it does not exists on the system.
         -- Others have the same issue. See Github issue above.
         --
+        -- https://github.com/mason-org/mason-registry/pull/12567#pullrequestreview-3529895120
+        -- Temporary workaround is to install 3.15.0 version of lua-language-server
+        -- :MasonInstall lua-language-server@3.15.0
         lua_ls = {
           cmd = { 'lua-language-server' },
           filetypes = { 'lua' },
