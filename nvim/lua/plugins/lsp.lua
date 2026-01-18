@@ -43,6 +43,9 @@ return {
           settings = {},
         },
 
+        -- bash-language-server provides formatting via shfmt (when installed).
+        -- Formatting is triggered with <leader>lf via vim.lsp.buf.format.
+        -- shfmt is installed via Mason (see ensure_installed below).
         bashls = {
           cmd = { 'bash-language-server', 'start' },
           filetypes = { 'sh', 'bash' },
