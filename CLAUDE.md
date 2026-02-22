@@ -182,3 +182,12 @@ Or use `dev.sh` to create the symlink.
 - The floating terminal (`<leader>t`) auto-closes on BufLeave and toggles on repeated press.
 - Semantic tokens are disabled for Lua files in the LSP config.
 - The `psql.lua` plugin expects `NVIM_PSQL_CMD` environment variable to be set for SQL execution.
+
+## Neovim 0.12 Migration
+
+See [NEOVIM-0.12-MIGRATION.md](./NEOVIM-0.12-MIGRATION.md) for a detailed guide on upgrading to Neovim 0.12. Key opportunities:
+
+- **Drop plugins:** Comment.nvim (built-in `gc`), undotree (built-in `:Undotree`), copilot.lua/supermaven (native `vim.lsp.inline_completion`)
+- **Built-in plugin manager:** `vim.pack` can replace lazy.nvim (no lazy loading though)
+- **Built-in completion:** `vim.lsp.completion.enable()` + new `'autocomplete'` option can replace nvim-cmp
+- **Breaking changes:** `vim.diff` renamed, `vim.diagnostic.disable()` removed, `i_CTRL-R` behavior changed
