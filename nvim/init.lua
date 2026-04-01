@@ -4,7 +4,7 @@ vim.g.maplocalleader = " "
 -- Install package manager (https://github.com/folke/lazy.nvim)
 -- See `:help lazy.nvim.txt`
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system {
     "git",
     "clone",
@@ -36,7 +36,7 @@ autocmd("TextYankPost", {
   group = yank_group,
   pattern = "*",
   callback = function()
-    vim.highlight.on_yank {
+    vim.hl.on_yank {
       higroup = "IncSearch",
       timeout = 40,
     }
@@ -94,7 +94,7 @@ local function FloatingTerminal()
   if not terminal_state.buf or not vim.api.nvim_buf_is_valid(terminal_state.buf) then
     terminal_state.buf = vim.api.nvim_create_buf(false, true)
     -- Set buffer options for better terminal experience
-    vim.api.nvim_buf_set_option(terminal_state.buf, "bufhidden", "hide")
+    vim.bo[terminal_state.buf].bufhidden = "hide"
   end
 
   -- Calculate window dimensions
@@ -115,13 +115,13 @@ local function FloatingTerminal()
   })
 
   -- Set transparency for the floating window
-  vim.api.nvim_win_set_option(terminal_state.win, "winblend", 0)
+  vim.api.nvim_set_option_value("winblend", 0, { win = terminal_state.win })
 
   -- Set transparent background for the window
-  vim.api.nvim_win_set_option(
-    terminal_state.win,
+  vim.api.nvim_set_option_value(
     "winhighlight",
-    "Normal:FloatingTermNormal,FloatBorder:FloatingTermBorder"
+    "Normal:FloatingTermNormal,FloatBorder:FloatingTermBorder",
+    { win = terminal_state.win }
   )
 
   -- Define highlight groups for transparency
@@ -139,7 +139,7 @@ local function FloatingTerminal()
   end
 
   if not has_terminal then
-    vim.fn.termopen(os.getenv "SHELL")
+    vim.fn.jobstart(os.getenv("SHELL"), { term = true })
   end
 
   terminal_state.is_open = true

@@ -3,7 +3,6 @@ return {
   {
     "williamboman/mason.nvim",
     dependencies = {
-      "folke/neodev.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
 
       -- Collection of LSP server configurations
@@ -202,13 +201,8 @@ return {
         vim.lsp.enable(name)
       end
 
-      local capabilities = nil
-      if pcall(require, "cmp_nvim_lsp") then
-        capabilities = require("cmp_nvim_lsp").default_capabilities()
-      end
       -- Global configuration for all LSP clients
       vim.lsp.config('*', {
-        capabilities = capabilities,
         root_markers = { '.git' },
       })
 
@@ -239,12 +233,13 @@ return {
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
           local bufnr = args.buf
-          local client = assert(vim.lsp.get_client_by_id(args.data.client_id), "must have valid client")
+          local client = assert(vim.lsp.get_clients({ id = args.data.client_id })[1], "must have valid client")
 
           local builtin = require "telescope.builtin"
           local map = vim.keymap.set
 
           vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
+          vim.lsp.completion.enable(true, args.data.client_id, bufnr, { autotrigger = true })
           map("n", "gd", builtin.lsp_definitions, { buffer = 0 })
           map("n", "gl", vim.diagnostic.open_float, { buffer = 0 })
           map("n", "gr", builtin.lsp_references, { buffer = 0 })

@@ -34,6 +34,7 @@ opt.completeopt = "menuone,noinsert,noselect" -- Completion options
 opt.showmode = false                          -- Don't show mode (e.g., -- INSERT --)
 opt.pumheight = 10                            -- Popup menu height
 opt.pumblend = 10                             -- Popup menu transparency
+opt.pumborder = "rounded"                     -- Popup menu border
 opt.winblend = 0                              -- Floating window transparency
 opt.conceallevel = 0                          -- Don't hide markup, so that `` is visible in markdown files
 opt.concealcursor = ""                        -- Don't hide cursor line markup
