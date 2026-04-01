@@ -5,14 +5,6 @@ return {
     dependencies = {
       "WhoIsSethDaniel/mason-tool-installer.nvim",
 
-      -- Collection of LSP server configurations
-      -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
-      -- :help lspconfig-all
-      "neovim/nvim-lspconfig",
-
-      -- Progress notifications
-      { "j-hui/fidget.nvim", opts = {} },
-
       -- Schema information
       "b0o/SchemaStore.nvim",
     },
@@ -204,6 +196,11 @@ return {
       -- Global configuration for all LSP clients
       vim.lsp.config('*', {
         root_markers = { '.git' },
+      })
+
+      -- Diagnostic display
+      vim.diagnostic.config({
+        virtual_lines = true,
       })
 
       -- Mason setup for tool installation

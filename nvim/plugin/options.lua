@@ -39,7 +39,6 @@ opt.winblend = 0                              -- Floating window transparency
 opt.conceallevel = 0                          -- Don't hide markup, so that `` is visible in markdown files
 opt.concealcursor = ""                        -- Don't hide cursor line markup
 opt.lazyredraw = true                         -- Don't redraw during macros
-opt.synmaxcol = 300                           -- Syntax highlighting limit
 opt.laststatus = 3                            -- Global status line
 opt.ruler = false                             -- Don't show ruler
 

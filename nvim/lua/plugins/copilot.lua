@@ -7,15 +7,13 @@
 
 -- Only enable if has network to prevent errors when offline
 local function has_network()
-  return os.execute "ping -c1 -W1 google.com >/dev/null 2>&1" == 0
+  local response = vim.net.request("https://google.com")
+  return response.status ~= nil
 end
 
 return {
   {
     "zbirenbaum/copilot.lua",
-    dependencies = {
-      { "hrsh7th/nvim-cmp" },
-    },
     enabled = has_network(),
     cmd = "Copilot",
     event = "InsertEnter",
