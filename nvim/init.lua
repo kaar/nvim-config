@@ -1,10 +1,6 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- ============================================================================
--- PLUGINS
--- ============================================================================
-
 vim.api.nvim_create_autocmd("PackChanged", {
   callback = function(ev)
     local name = ev.data.spec.name
@@ -31,15 +27,7 @@ vim.pack.add({
   "https://github.com/zbirenbaum/copilot.lua",
 })
 
--- ============================================================================
--- COLORSCHEME
--- ============================================================================
-
 vim.cmd.colorscheme("gruvbox-material")
-
--- ============================================================================
--- PLUGIN SETUP
--- ============================================================================
 
 require("nvim-autopairs").setup()
 
@@ -119,10 +107,6 @@ require("copilot").setup {
     ["."] = false,
   },
 }
-
--- ============================================================================
--- LSP
--- ============================================================================
 
 local servers = {
   bashls = {
@@ -258,10 +242,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
--- ============================================================================
 -- AUTOCOMMANDS
--- ============================================================================
-
 vim.api.nvim_create_autocmd("TextYankPost", {
   group = vim.api.nvim_create_augroup("HighlightYank", {}),
   callback = function()
@@ -290,10 +271,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   command = "set filetype=sql",
 })
 
--- ============================================================================
 -- FLOATING TERMINAL
--- ============================================================================
-
 local terminal_state = { buf = nil, win = nil, is_open = false }
 
 local function FloatingTerminal()
