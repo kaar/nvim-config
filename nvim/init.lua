@@ -38,6 +38,11 @@ vim.pack.add({
 
 vim.cmd.colorscheme("gruvbox-material")
 
+
+-- https://neovim.io/doc/user/diagnostic/
+-- Nvim provides these handlers by default: "virtual_text", "virtual_lines", "signs", and "underline".
+vim.diagnostic.config { virtual_lines = true }
+
 vim.lsp.enable('ruff')
 vim.lsp.enable('pyright')
 vim.lsp.enable('terraformls')
