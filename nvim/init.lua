@@ -15,7 +15,7 @@ vim.pack.add({
 
   "https://github.com/tpope/vim-fugitive",
 
-  "https://github.com/ThePrimeagen/harpoon",
+  { src = "https://github.com/ThePrimeagen/harpoon", version = "harpoon2" },
   "https://github.com/nvim-lua/plenary.nvim",
 
   "https://github.com/neovim/nvim-lspconfig",
