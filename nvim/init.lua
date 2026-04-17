@@ -101,6 +101,18 @@ require("lualine").setup {
 }
 require("fidget").setup({})
 
+-- LSP keymaps (supplements Neovim 0.12 defaults: grn, gra, grr, K)
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local map = vim.keymap.set
+    local builtin = require("telescope.builtin")
+    map("n", "gd", builtin.lsp_definitions, { buffer = args.buf })
+    map("n", "gr", builtin.lsp_references, { buffer = args.buf })
+    map("n", "gl", vim.diagnostic.open_float, { buffer = args.buf })
+    map("n", "<leader>lf", vim.lsp.buf.format, { buffer = args.buf })
+  end,
+})
+
 
 local harpoon = require("harpoon")
 harpoon:setup()
