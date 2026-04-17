@@ -1,3 +1,24 @@
+-- Markdown fenced code block syntax highlighting
+--
+-- Neovim 0.12 bundles the Tree-sitter engine and a small set of parsers:
+-- c, lua, markdown, markdown_inline, query, vim, vimdoc.
+--
+-- Markdown highlighting itself works out of the box. However, syntax
+-- highlighting inside fenced code blocks (e.g. ```python) requires the
+-- parser for each embedded language to be present as a .so file on
+-- Neovim's runtimepath (specifically in a parser/ directory).
+--
+-- Homebrew's tree-sitter-* formulae install .dylib files, which Neovim
+-- cannot use. Parsers must be compiled as .so files using the
+-- tree-sitter CLI and placed in ~/.local/share/nvim/site/parser/.
+--
+-- To add a language:
+--   cd $(brew --prefix tree-sitter-<lang>)/share/tree-sitter/<lang>
+--   tree-sitter build --output ~/.local/share/nvim/site/parser/<lang>.so
+--
+-- Parsers installed this way:
+--   python: tree-sitter-python (brew)
+--   bash:   tree-sitter-bash (brew)
 -- Markdown-specific settings
 local opt = vim.opt_local
 
