@@ -2,8 +2,6 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- TODO:
--- i_CTRL-R inserts named/clipboard registers (A-Z,a-z,0-9+) literally, like pasting instead of like user input. Improves performance, avoids broken formatting. To get the old behavior you can use <C-R>=@x.
--- Use nvim pack import
 -- UndoTree is now an option... "mbbill/undotree",
 -- diff view built in to nvim 0.12
 
@@ -56,7 +54,6 @@ vim.lsp.enable('html')
 vim.lsp.enable('ts_ls')
 vim.lsp.enable('jsonls')
 vim.lsp.enable('yamlls')
-
 
 vim.lsp.config.yamlls.settings = {
   yaml = {
