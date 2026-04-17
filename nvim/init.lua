@@ -77,11 +77,13 @@ vim.lsp.config.lua_ls.settings = {
   },
 }
 
-
 require("mason").setup()
 require("mason-lspconfig").setup()
-
-require("oil").setup()
+require("oil").setup {
+  columns = { "icon" },
+  view_options = { show_hidden = true },
+  default_file_explorer = true,
+}
 require("nvim-autopairs").setup()
 require("lualine").setup {
   options = {
@@ -91,6 +93,8 @@ require("lualine").setup {
     section_separators = "",
   },
 }
+require("fidget").setup({})
+
 
 local harpoon = require("harpoon")
 harpoon:setup()
@@ -124,15 +128,6 @@ require("copilot").setup {
     svn = false,
     cvs = false,
     ["."] = false,
-  },
-}
-
-require("lualine").setup {
-  options = {
-    icons_enabled = false,
-    theme = "gruvbox",
-    component_separators = "|",
-    section_separators = "",
   },
 }
 
