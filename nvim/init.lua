@@ -101,7 +101,7 @@ require("lualine").setup {
 }
 require("fidget").setup({})
 
--- LSP keymaps (supplements Neovim 0.12 defaults: grn, gra, grr, K)
+-- LSP keymaps (supplements Neovim 0.12 defaults: grn, gra, grr, K), See: help lsp-defaults
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     local map = vim.keymap.set
