@@ -67,6 +67,12 @@ vim.lsp.config.yamlls.settings = {
     schemas = require('schemastore').yaml.schemas(),
   },
 }
+vim.lsp.config.jsonls.settings = {
+  json = {
+    schemas = require('schemastore').json.schemas(),
+    validate = { enable = true },
+  },
+}
 vim.lsp.config.lua_ls.settings = {
   Lua = {
     runtime = { version = "LuaJIT"
