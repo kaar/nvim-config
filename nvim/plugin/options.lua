@@ -10,9 +10,9 @@ opt.scrolloff = 10         -- Lines above/below cursor
 opt.sidescrolloff = 8      -- Keep 8 columns left/right of cursor
 
 -- Indentation
-opt.tabstop = 2        -- Tab width
-opt.shiftwidth = 2     -- Number of spaces inserted for each indentation
-opt.softtabstop = 2    -- Soft tab stop
+opt.tabstop = 4        -- Tab width
+opt.shiftwidth = 4     -- Number of spaces inserted for each indentation
+opt.softtabstop = 4    -- Soft tab stop
 opt.expandtab = true   -- Convert tabs to spaces
 opt.smartindent = true -- Smart auto-indenting
 opt.autoindent = true  -- Copy indent from current line
