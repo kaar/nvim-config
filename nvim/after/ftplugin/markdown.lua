@@ -37,3 +37,11 @@ vim.keymap.set({ "n", "v" }, "$", "g$", { buffer = true, desc = "Go to end of di
 opt.spell = true
 opt.spelllang = "en_us"
 
+-- Wikilink support for gf ([[entities/forefront]] -> entities/forefront.md)
+opt.suffixesadd:append(".md")
+vim.opt_local.includeexpr = "v:lua.resolve_wikilink(v:fname)"
+
+function _G.resolve_wikilink(fname)
+  -- Strip [[ and ]] if present
+  return fname:gsub("%[%[", ""):gsub("%]%]", "")
+end
