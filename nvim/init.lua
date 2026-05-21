@@ -55,36 +55,44 @@ vim.lsp.enable('ts_ls')
 vim.lsp.enable('jsonls')
 vim.lsp.enable('yamlls')
 
-vim.lsp.config.yamlls.settings = {
-  yaml = {
-    schemaStore = {
-      -- You must disable built-in schemaStore support if you want to use
-      -- this plugin and its advanced options like `ignore`.
-      enable = false,
-      -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
-      url = "",
+vim.lsp.config('yamlls', {
+  settings = {
+    yaml = {
+      schemaStore = {
+        -- You must disable built-in schemaStore support if you want to use
+        -- this plugin and its advanced options like `ignore`.
+        enable = false,
+        -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+        url = "",
+      },
+      schemas = require('schemastore').yaml.schemas(),
     },
-    schemas = require('schemastore').yaml.schemas(),
   },
-}
-vim.lsp.config.jsonls.settings = {
-  json = {
-    schemas = require('schemastore').json.schemas(),
-    validate = { enable = true },
-  },
-}
-vim.lsp.config.lua_ls.settings = {
-  Lua = {
-    runtime = { version = "LuaJIT"
+})
+vim.lsp.config('jsonls', {
+  settings = {
+    json = {
+      schemas = require('schemastore').json.schemas(),
+      validate = { enable = true },
     },
-    diagnostics = { globals = { "vim" } },
-    workspace = { library = vim.api.nvim_get_runtime_file("", true) },
-    telemetry = { enable = false },
   },
-}
+})
+vim.lsp.config('lua_ls', {
+  settings = {
+    Lua = {
+      runtime = { version = "LuaJIT" },
+      diagnostics = { globals = { "vim" } },
+      workspace = {
+        library = vim.api.nvim_get_runtime_file("", true),
+        checkThirdParty = false,
+      },
+      telemetry = { enable = false },
+    },
+  },
+})
 
 require("mason").setup()
-require("mason-lspconfig").setup()
+require("mason-lspconfig").setup({ automatic_enable = false })
 require("oil").setup {
   columns = { "icon" },
   view_options = { show_hidden = true },
@@ -117,7 +125,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 local harpoon = require("harpoon")
 harpoon:setup()
 vim.keymap.set("n", "<leader>m", function() harpoon:list():add() end, { desc = "Mark file with Harpoon" })
-vim.keymap.set("n", "<leader>l", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = "List Harpoon files" })
+vim.keymap.set("n", "<leader>l", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end,
+  { desc = "List Harpoon files" })
 for _, idx in ipairs { 1, 2, 3, 4, 5 } do
   vim.keymap.set("n", string.format("<space>%d", idx), function() harpoon:list():select(idx) end)
 end
@@ -233,7 +242,8 @@ local function FloatingTerminal()
   vim.api.nvim_set_hl(0, "FloatingTermNormal", { bg = "none" })
   vim.api.nvim_set_hl(0, "FloatingTermBorder", { bg = "none" })
   vim.api.nvim_set_option_value("winblend", 0, { win = terminal_state.win })
-  vim.api.nvim_set_option_value("winhighlight", "Normal:FloatingTermNormal,FloatBorder:FloatingTermBorder", { win = terminal_state.win })
+  vim.api.nvim_set_option_value("winhighlight", "Normal:FloatingTermNormal,FloatBorder:FloatingTermBorder",
+    { win = terminal_state.win })
 
   if vim.api.nvim_buf_line_count(terminal_state.buf) <= 1 and vim.api.nvim_buf_get_lines(terminal_state.buf, 0, 1, false)[1] == "" then
     vim.fn.jobstart(os.getenv("SHELL"), { term = true })
