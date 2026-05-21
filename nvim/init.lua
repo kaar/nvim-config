@@ -2,7 +2,6 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- TODO:
--- UndoTree is now an option... "mbbill/undotree",
 -- diff view built in to nvim 0.12
 
 -- https://neovim.io/doc/user/pack/#vim.pack.add()
@@ -41,19 +40,21 @@ vim.cmd.colorscheme("gruvbox-material")
 -- Nvim provides these handlers by default: "virtual_text", "virtual_lines", "signs", and "underline".
 vim.diagnostic.config { virtual_lines = true }
 
-vim.lsp.enable('ruff')
-vim.lsp.enable('pyright')
-vim.lsp.enable('terraformls')
-vim.lsp.enable('bashls')
-vim.lsp.enable('clangd')
-vim.lsp.enable('gopls')
-vim.lsp.enable('lua_ls')
-vim.lsp.enable('rust_analyzer')
-vim.lsp.enable('cssls')
-vim.lsp.enable('html')
-vim.lsp.enable('ts_ls')
-vim.lsp.enable('jsonls')
-vim.lsp.enable('yamlls')
+vim.lsp.enable({
+  'ruff',
+  'pyright',
+  'terraformls',
+  'bashls',
+  'clangd',
+  'gopls',
+  'lua_ls',
+  'rust_analyzer',
+  'cssls',
+  'html',
+  'ts_ls',
+  'jsonls',
+  'yamlls',
+})
 
 vim.lsp.config('yamlls', {
   settings = {
@@ -168,7 +169,7 @@ autocmd("TextYankPost", {
   group = yank_group,
   pattern = "*",
   callback = function()
-    vim.highlight.on_yank {
+    vim.hl.on_yank {
       higroup = "IncSearch",
       timeout = 40,
     }

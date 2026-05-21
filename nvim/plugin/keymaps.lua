@@ -1,13 +1,9 @@
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
 local keymap = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
 keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
 keymap("n", "<leader>q", "<cmd>confirm q<CR>", opts)
 keymap("n", "<leader>w", "<cmd>w!<CR>", opts)
-keymap("n", "<leader>e", ":NvimTreeToggle<CR>", { silent = true })
 keymap("n", "<leader>c", ":bd<CR>", { desc = "Close buffer", silent = true })
 
 -- Oil, https://github.com/stevearc/oil.nvim
@@ -72,9 +68,6 @@ keymap({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 -- Remap for dealing with word wrap
 keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-
--- UndoTree
-keymap("n", "<leader>u", vim.cmd.UndotreeToggle)
 
 -- Man page for word under cursor
 keymap("n", "<leader>K", ":Man <C-r><C-w><CR>", { desc = "Open man page for word under cursor" })

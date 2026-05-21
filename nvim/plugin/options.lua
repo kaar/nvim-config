@@ -15,13 +15,10 @@ opt.shiftwidth = 2     -- Number of spaces inserted for each indentation
 opt.softtabstop = 2    -- Soft tab stop
 opt.expandtab = true   -- Convert tabs to spaces
 opt.smartindent = true -- Smart auto-indenting
-opt.autoindent = true  -- Copy indent from current line
 
 -- Search
 opt.ignorecase = true -- Case insensitive search
 opt.smartcase = true  -- Case sensitive if uppercase in search
-opt.hlsearch = true   -- Highlight all matches on previous search pattern
-opt.incsearch = true  -- Show matches as you type
 
 -- Appearance
 opt.termguicolors = true                      -- set term gui colors (most terminals support this)
@@ -37,8 +34,6 @@ opt.pumblend = 10                             -- Popup menu transparency
 opt.winblend = 0                              -- Floating window transparency
 opt.conceallevel = 0                          -- Don't hide markup, so that `` is visible in markdown files
 opt.concealcursor = ""                        -- Don't hide cursor line markup
-opt.lazyredraw = true                         -- Don't redraw during macros
-opt.synmaxcol = 300                           -- Syntax highlighting limit
 opt.laststatus = 3                            -- Global status line
 opt.ruler = false                             -- Don't show ruler
 
@@ -50,22 +45,14 @@ opt.undofile = true                           -- Persistent undo
 opt.undodir = vim.fn.expand("~/.vim/undodir") -- Undo directory
 opt.updatetime = 300                          -- Faster completion (4000ms default)
 opt.timeoutlen = 500                          -- Key timeout duration, mapped sequence to complete (300ms was a bit too short)
-opt.ttimeoutlen = 0                           -- Key code timeout
-opt.autoread = true                           -- Reload files changed outside vim
 opt.autowrite = false                         -- Don't auto save
 
 -- Behavior
-opt.hidden = true                   -- Allow hidden buffers
-opt.errorbells = false              -- No error bells
-opt.backspace = "indent,eol,start"  -- Better backspace behavior
-opt.autochdir = false               -- Don't auto change directory
 opt.iskeyword:append("-")           -- Treat dash as part of word
 opt.path:append("**")               -- Include subdirectories in search
 opt.selection = "exclusive"         -- Selection behavior
 opt.mouse = "a"                     -- Enable mouse support
 opt.clipboard:append("unnamedplus") -- Use system clipboard
-opt.modifiable = true               -- Allow buffer modifications
-opt.encoding = "utf-8"              -- Set encoding
 opt.inccommand = "split"            -- Show effect of substitution command in real time
 opt.splitbelow = true               -- Force all horizontal splits to go below current window
 opt.splitright = true               -- Force all vertical splits to go to the right of current window
