@@ -50,7 +50,6 @@ opt.autowrite = false                         -- Don't auto save
 -- Behavior
 opt.iskeyword:append("-")           -- Treat dash as part of word
 opt.path:append("**")               -- Include subdirectories in search
-opt.selection = "exclusive"         -- Selection behavior
 opt.mouse = "a"                     -- Enable mouse support
 opt.clipboard:append("unnamedplus") -- Use system clipboard
 opt.inccommand = "split"            -- Show effect of substitution command in real time
