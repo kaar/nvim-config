@@ -103,7 +103,7 @@ require("nvim-autopairs").setup()
 require("lualine").setup {
   options = {
     icons_enabled = false,
-    theme = "gruvbox",
+    theme = "auto", -- picks the matching theme for the active colorscheme
     component_separators = "|",
     section_separators = "",
   },
