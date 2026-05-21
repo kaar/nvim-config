@@ -111,6 +111,9 @@ require("lualine").setup {
 require("fidget").setup({})
 
 -- LSP keymaps (supplements Neovim 0.12 defaults: grn, gra, grr, K), See: help lsp-defaults
+-- Note: `gd` here shadows the built-in `gd` (jump to local declaration in normal
+-- mode). Intentional: we prefer the Telescope picker for definitions. Use `gD`
+-- for the legacy jump-to-declaration behaviour.
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     local map = vim.keymap.set
