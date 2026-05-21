@@ -49,9 +49,6 @@ keymap("x", "p", [["_dP]])
 keymap("n", "<leader>-", "<C-w>s", opts)
 keymap("n", "<leader>|", "<C-w>v", opts)
 
--- Execute `q` command in a new split
-keymap("n", "<leader>x", ":new tmp.md | read !q #<CR>", opts)
-
 -- Enhance the default search navigation by ensuring that the screen is
 -- centered on each match
 keymap("n", "n", "nzz", opts)
