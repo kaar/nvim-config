@@ -24,21 +24,7 @@ local opt = vim.opt_local
 
 opt.wrap = true      -- Wrap lines at the end of the screen
 opt.linebreak = true -- Break at word boundaries
-opt.textwidth = 0    -- Don't auto-insert line breaks (no hard wrap)
-
--- Soft-wrap markdown at column 80.
---
--- Neovim has no built-in option for soft-wrapping at a specific column:
--- `wrap` always breaks at the window edge, and `textwidth`/`wrapmargin`
--- insert real newlines into the file. We want markdown paragraphs to stay
--- as one long line on disk (per AGENTS.md style) but render wrapped at
--- column 80 so they line up with our colorcolumn guide regardless of
--- window width.
---
--- The wrapwidth plugin (rickhowe/wrapwidth) achieves this by inserting
--- inline virtual-text padding on the right so that `wrap` then breaks at
--- the desired column. Buffer-local: only affects this markdown buffer.
-vim.cmd("Wrapwidth 100")
+opt.textwidth = 0    -- Don't auto-insert line breaks
 
 -- Better navigation with wrapped lines
 -- Moving by display lines instead of physical lines
