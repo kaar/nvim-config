@@ -31,6 +31,12 @@ vim.pack.add({
   "https://github.com/mason-org/mason.nvim",
   "https://github.com/mason-org/mason-lspconfig.nvim",
   "https://github.com/stevearc/oil.nvim",
+
+  -- Virtually wraps long lines at a specific column (see ftplugin/markdown.lua).
+  -- Neovim's built-in `wrap` only wraps at the window edge; this plugin adds
+  -- a `:Wrapwidth N` command that wraps visually at column N using inline
+  -- virtual text, without modifying the file contents.
+  "https://github.com/rickhowe/wrapwidth",
 })
 
 vim.cmd.colorscheme("gruvbox-material")
