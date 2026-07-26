@@ -66,5 +66,23 @@ keymap({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
+-- Execute current line as a shell command, keeping the command and
+-- inserting the output below it
+keymap("n", "<leader>x", function()
+	local line = vim.api.nvim_get_current_line()
+	local output = vim.fn.systemlist(line)
+	local row = vim.api.nvim_win_get_cursor(0)[1]
+	vim.api.nvim_buf_set_lines(0, row, row, false, output)
+end, { desc = "Execute line as shell command (output below)" })
+
+-- Same for a visual selection: run it as a script, insert output below
+keymap("v", "<leader>x", function()
+	vim.cmd('normal! "vy')
+	local script = vim.fn.getreg("v")
+	local output = vim.fn.systemlist("sh", script)
+	local last = vim.fn.line("'>")
+	vim.api.nvim_buf_set_lines(0, last, last, false, output)
+end, { desc = "Execute selection as shell script (output below)" })
+
 -- Man page for word under cursor
 keymap("n", "<leader>K", ":Man <C-r><C-w><CR>", { desc = "Open man page for word under cursor" })
