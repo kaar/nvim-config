@@ -78,6 +78,24 @@ vim.lsp.config('jsonls', {
     },
   },
 })
+vim.lsp.config('pyright', {
+  settings = {
+    python = {
+      analysis = {
+        autoSearchPaths = true,
+        useLibraryCodeForTypes = true,
+        diagnosticMode = "openFilesOnly",
+      },
+    },
+  },
+  before_init = function(_, config)
+    local root = config.root_dir
+    local venv = root and (root .. "/.venv/bin/python")
+    if venv and vim.uv.fs_stat(venv) then
+      config.settings.python.pythonPath = venv
+    end
+  end,
+})
 vim.lsp.config('lua_ls', {
   settings = {
     Lua = {
