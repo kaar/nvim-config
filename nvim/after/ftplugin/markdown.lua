@@ -27,6 +27,7 @@ opt.spelllang = "en_us"
 opt.suffixesadd:append(".md")
 vim.opt_local.includeexpr = "v:lua.resolve_wikilink(v:fname)"
 
+---@diagnostic disable-next-line: duplicate-set-field
 function _G.resolve_wikilink(fname)
   -- Strip [[ and ]] if present
   return fname:gsub("%[%[", ""):gsub("%]%]", "")
