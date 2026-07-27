@@ -40,6 +40,18 @@ vim.pack.add({
   "https://github.com/davidmh/mdx.nvim",
 })
 
+-- Auto-remove plugins on disk that are no longer in the spec above. Anything
+-- still inactive right after add() was not declared, so it is an orphan.
+-- Safe only because every plugin is added unconditionally above (no lazy
+-- `:packadd`); such plugins would be seen as inactive and wrongly deleted.
+local orphans = vim.iter(vim.pack.get())
+  :filter(function(p) return not p.active end)
+  :map(function(p) return p.spec.name end)
+  :totable()
+if #orphans > 0 then
+  vim.pack.del(orphans)
+end
+
 vim.cmd.colorscheme("gruvbox-material")
 
 
