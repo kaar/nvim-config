@@ -31,6 +31,13 @@ vim.pack.add({
   "https://github.com/mason-org/mason.nvim",
   "https://github.com/mason-org/mason-lspconfig.nvim",
   "https://github.com/stevearc/oil.nvim",
+
+  -- Tree-sitter parser/query manager (rewrite for Neovim 0.12+).
+  -- The tree-sitter engine, highlighting, injections and folds are provided
+  -- by Neovim itself; this plugin only installs parsers and ships queries.
+  { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
+  -- MDX support: registers the `mdx` filetype and injects TSX into JSX blocks.
+  "https://github.com/davidmh/mdx.nvim",
 })
 
 vim.cmd.colorscheme("gruvbox-material")
