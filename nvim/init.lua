@@ -1,9 +1,9 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- Inside herdr (and not tmux), plugin/herdr_navigator.lua owns <C-h/j/k/l>;
--- stop vim-tmux-navigator from also mapping them. Must be set before the
--- plugin's own plugin/ script is sourced.
+-- Inside herdr (and not tmux), nvim-herdr-navigator owns <C-h/j/k/l>;
+-- stop vim-tmux-navigator from also mapping them. Must be set here because
+-- vim-tmux-navigator is sourced before nvim-herdr-navigator in pack order.
 if vim.env.HERDR_ENV == "1" and not vim.env.TMUX then
   vim.g.tmux_navigator_no_mappings = 1
 end
@@ -45,6 +45,8 @@ vim.pack.add({
   { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
   -- MDX support: registers the `mdx` filetype and injects TSX into JSX blocks.
   "https://github.com/davidmh/mdx.nvim",
+
+  "https://github.com/kaar/nvim-herdr-navigator"
 })
 
 -- Auto-remove plugins on disk that are no longer in the spec above. Anything
