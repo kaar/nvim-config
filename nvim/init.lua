@@ -1,6 +1,13 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- Inside herdr (and not tmux), plugin/herdr_navigator.lua owns <C-h/j/k/l>;
+-- stop vim-tmux-navigator from also mapping them. Must be set before the
+-- plugin's own plugin/ script is sourced.
+if vim.env.HERDR_ENV == "1" and not vim.env.TMUX then
+  vim.g.tmux_navigator_no_mappings = 1
+end
+
 -- TODO:
 -- diff view built in to nvim 0.12
 
