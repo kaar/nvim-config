@@ -8,6 +8,24 @@ if vim.env.HERDR_ENV == "1" and not vim.env.TMUX then
   vim.g.tmux_navigator_no_mappings = 1
 end
 
+-- Forward remote yanks to the local terminal clipboard over SSH via OSC 52.
+-- `clipboard=unnamedplus` in plugin/options.lua makes ordinary yanks use `+`.
+if vim.env.SSH_TTY then
+  local osc52 = require("vim.ui.clipboard.osc52")
+
+  vim.g.clipboard = {
+    name = "OSC 52",
+    copy = {
+      ["+"] = osc52.copy("+"),
+      ["*"] = osc52.copy("*"),
+    },
+    paste = {
+      ["+"] = osc52.paste("+"),
+      ["*"] = osc52.paste("*"),
+    },
+  }
+end
+
 -- TODO:
 -- diff view built in to nvim 0.12
 
