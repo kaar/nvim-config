@@ -4,6 +4,7 @@ local opts = { noremap = true, silent = true }
 keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
 keymap("n", "<leader>q", "<cmd>confirm q<CR>", opts)
 keymap("n", "<leader>w", "<cmd>w!<CR>", opts)
+keymap("n", "<leader>W", "<cmd>wq<CR>", opts)
 keymap("n", "<leader>c", ":bd<CR>", { desc = "Close buffer", silent = true })
 
 -- Oil, https://github.com/stevearc/oil.nvim
