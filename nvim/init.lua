@@ -63,7 +63,7 @@ vim.pack.add({
   { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
   -- MDX support: registers the `mdx` filetype and injects TSX into JSX blocks.
   "https://github.com/davidmh/mdx.nvim",
-  "https://github.com/MeanderingProgrammer/render-markdown.nvim",
+  -- "https://github.com/MeanderingProgrammer/render-markdown.nvim",
 
   "https://github.com/kaar/nvim-herdr-navigator"
 })
